@@ -1,0 +1,53 @@
+*{
+  box-sizing: border-box;
+}
+.h1{
+  text-align:center;
+  background: blue;
+  color: white;
+}
+.main{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.loginpage,.ordersspage,.productspage,.users{
+  width: 420px;
+  height: 60vh;
+  overflow: auto;
+  padding: 20px;
+  box-shadow: 2px 2px 5px;
+}
+.loginpage{
+  background:lightgreen;
+}
+.ordersspage{
+  background:lightblue;
+}
+.productspage{
+  background:lightgray;
+}
+.userspage{
+  width: 1260px;
+  height: 60vh;
+  overflow: auto;
+  background:rgb(248, 125, 162);
+  padding: 20px;
+}
+label{
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+}
+input{
+  display: inline-block;
+  width: 70%;
+}
+input[type="submit"]{
+  width: 200px;
+  text-align: center;
+}
+span{
+  display: inline-block;
+  width: 30%;
+}
