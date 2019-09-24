@@ -33,7 +33,7 @@ class Login extends Component {
    
     }
     render() {
-        console.log(this.props.data.token)
+        console.log(this.props.data)
         const signupPage=(<><h1>Sign up </h1>
             <form className="loginform" 
             action="/users" 

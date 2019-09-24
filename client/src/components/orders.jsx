@@ -78,7 +78,7 @@ class Orders extends Component {
                     <details> <summary>all orders</summary>
 
                         {this.state.orders.length === 0 ? "" : (<>{this.state.orders.map(order => {
-                            return (<div style={{ background: "lightgreen", padding: "5px", border: "2px dotted black" }}><p> <span style={{ background: "lightgray" }}> Id:</span> {order._id} </p>
+                            return (<div key={order._id} style={{ background: "lightgreen", padding: "5px", border: "2px dotted black" }}><p> <span style={{ background: "lightgray" }}> Id:</span> {order._id} </p>
                                 <p><span style={{ background: "lightgray" }}>  Item Name:</span> {order.itemname} </p>
                                 <p><span style={{ background: "lightgray" }}> Price:</span>  {order.price} </p>
                                 <p> <span style={{ background: "lightgray" }}>  quantity:</span>{order.quantity} </p> </div>)
@@ -104,7 +104,7 @@ class Orders extends Component {
                     <div className="updateorder">
                         <details> <summary>update order </summary>
 
-                            <form action="/orders/:orderID" method="PATCH" onSubmit={this.orderUpdate}>
+                            <form action="/orders" method="PATCH" onSubmit={this.orderUpdate}>
                                 <label htmlFor="id"><span> ID:</span>
                                     <input type="text" name="id" />
                                 </label><br />
@@ -124,7 +124,7 @@ class Orders extends Component {
                     <div className="deleteorder">
                         <details> <summary>delete order </summary>
 
-                            <form action="/orders/:orderID" method="DELETE" onSubmit={this.orderDelete} >
+                            <form action="/orders" method="DELETE" onSubmit={this.orderDelete} >
                                 <label htmlFor="id"><span>ID: </span>
                                     <input type="text" name="id" />
                                 </label><br />
