@@ -51,3 +51,20 @@ span{
   display: inline-block;
   width: 30%;
 }
+.msjfromserver{
+  color: green;
+  display: inline-block;
+  transition: 1s;
+  animation: fade 1s linear infinite;
+}
+@keyframes fade {
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
