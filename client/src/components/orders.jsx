@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 
 class Orders extends Component {
     state = {
-        orders: []
-    }
+        orders: [],
+        postorder: "",
+        updateorder:"",
+        deleteorder:""
+    }   
+  
+
     getorders = () => {
         fetch("/orders")
             .then(res => res.json())
@@ -16,6 +21,53 @@ class Orders extends Component {
                 })
             }
             )
+    }
+    orderPost = (e) => {
+        e.preventDefault();
+        const formdata = new FormData(e.target)
+        const searchurl = new URLSearchParams();
+        for (const pair of formdata) {
+            searchurl.append(pair[0], pair[1])
+        }
+        e.target.reset()
+        console.log(searchurl)
+        fetch("/orders", { method: "POST", body: searchurl })
+            .then(res => res.json())
+                .then(res2 => this.setState({
+                    postorder:res2.postorder
+                  }))
+    }
+    orderUpdate = (e) => {
+        e.preventDefault();
+        const formdata = new FormData(e.target)
+        const searchurl = new URLSearchParams();
+        for (const pair of formdata) {
+            searchurl.append(pair[0], pair[1])
+        }
+        e.target.reset()
+        console.log(searchurl)
+        fetch("/orders", { method: "PATCH", body: searchurl })
+            .then(res => res.json())
+                .then(res2 => this.setState({
+                    updateorder: res2.updateorder
+                }))
+
+    }
+    orderDelete = (e) => {
+        e.preventDefault();
+        const formdata = new FormData(e.target)
+        const searchurl = new URLSearchParams();
+        for (const pair of formdata) {
+            searchurl.append(pair[0], pair[1])
+        }
+        e.target.reset()
+        console.log(searchurl)
+        fetch("/orders", { method: "DELETE", body: searchurl })
+            .then(res => res.json())
+                .then(res2 => this.setState({
+                    deleteorder: res2.deleteorder
+                }))
+
     }
     render() {
         return (
@@ -33,10 +85,10 @@ class Orders extends Component {
                         })}</>)}
                     </details>
                 </div>
-                {this.props.data.userLogin?<><div className="postorder">
+                {this.props.data.userLogin ? <><div className="postorder">
                     <details> <summary>post order </summary>
 
-                        <form action="/orders" method="POST">
+                        <form action="/orders" method="POST" onSubmit={this.orderPost}>
                             <label htmlFor="itemname"><span> Item Name: </span>
                                 <input type="text" name="itemname" />
                             </label><br />
@@ -45,56 +97,51 @@ class Orders extends Component {
                             <label htmlFor="quantity"><span>Qantity:  </span>
                                 <input type="text" name="quantity" />
                             </label><br />
+                            <span className="msjfromserver">{this.state.postorder}</span><br/>
                             <button type="submit">Post order</button>
                         </form></details>
                 </div>
-                <div className="updateorder">
-                    <details> <summary>update order </summary>
+                    <div className="updateorder">
+                        <details> <summary>update order </summary>
 
-                        <form action="/orders/:orderID" method="PATCH">
-                            <label htmlFor="id"><span> ID:</span>
-                                <input type="text" name="id" />
-                            </label><br />
-                            <label htmlFor="itemname"><span>Item Name:  </span>
-                                <input type="text" name="itemname" />
-                            </label><br />
-                            <label htmlFor="price"><span>Price:   </span>
-                                <input type="text" name="price" /> </label><br />
-                            <label htmlFor="quantity"><span>   Qantity:  </span>
-                                <input type="text" name="quantity" />
-                            </label><br />
-                            <button type="submit">update order</button>
-                        </form>
-                    </details>
-                </div>
-                <div className="deleteorder">
-                    <details> <summary>delete order </summary>
+                            <form action="/orders/:orderID" method="PATCH" onSubmit={this.orderUpdate}>
+                                <label htmlFor="id"><span> ID:</span>
+                                    <input type="text" name="id" />
+                                </label><br />
+                                <label htmlFor="itemname"><span>Item Name:  </span>
+                                    <input type="text" name="itemname" />
+                                </label><br />
+                                <label htmlFor="price"><span>Price:   </span>
+                                    <input type="text" name="price" /> </label><br />
+                                <label htmlFor="quantity"><span>   Qantity:  </span>
+                                    <input type="text" name="quantity" />
+                                </label><br />
+                                <span className="msjfromserver">{this.state.updateorder}</span><br/>
+                                <button type="submit">update order</button>
+                            </form>
+                        </details>
+                    </div>
+                    <div className="deleteorder">
+                        <details> <summary>delete order </summary>
 
-                        <form action="/orders/:orderID" method="DELETE">
-                            <label htmlFor="id"><span>ID: </span>
-                                <input type="text" name="id" />
-                            </label><br />
-                            <label htmlFor="itemname"><span> Item Name:  </span>
-                                <input type="text" name="itemname" />
-                            </label><br />
-                            <label htmlFor="price"><span>Price: </span>
-                                <input type="text" name="price" /> </label><br />
-                            <label htmlFor="quantity"><span>Qantity: </span>
-                                <input type="text" name="quantity" />
-                            </label><br />
-                            <button type="submit">Delete order</button>
-                        </form>
-                    </details>
-                </div> </> : ""}
-                
+                            <form action="/orders/:orderID" method="DELETE" onSubmit={this.orderDelete} >
+                                <label htmlFor="id"><span>ID: </span>
+                                    <input type="text" name="id" />
+                                </label><br />
+                                <span className="msjfromserver">{this.state.deleteorder}</span><br/>
+                                <button type="submit">Delete order</button>
+                            </form>
+                        </details>
+                    </div> </> : ""}
+
             </div>
         )
     }
 }
 
 
-const mapStateToProps=(state)=>{
-    return {data:state}
+const mapStateToProps = (state) => {
+    return { data: state }
 }
 
 
