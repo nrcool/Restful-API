@@ -28,9 +28,9 @@ router.post("/", (req, res, next) => {
                             })
                             user.save().then((doc) => {
                                 console.log(doc, "SAVEDDDDDD::::::::::::::")
-                                res.status(201).json({
+                                /* res.status(201).json({
                                     Success: "user created into database"
-                                })
+                                }) */
                             });
                         }
                     })
@@ -53,22 +53,22 @@ router.post("/", (req, res, next) => {
 router.post("/userlogin", (req, res) => {
     console.log(req.body)
     Users.findOne({ username: req.body.username }).then(user => {
-        bcrypt.compare(req.body.password, user.password,(err,result)=>{
+        bcrypt.compare(req.body.password, user.password,(errr,result)=>{
             if (result) {
                 jwt.sign({username:user.username,userid:user._id},process.env.MY_BCRYPT,{expiresIn:"1h"},(err,token)=>{
                     if(err){
                         res.status(500).json({error:err.message})
-                    }else{
-                        if(user.username="admin"){
+                    }else if(user.username==="admin"){
                            res.json({ userlogin: true, unorpw: "", token:token ,admin:true }) 
-                        }else{   res.json({ userlogin: true, unorpw: "", token:token, admin:false })  }
+                        }
+                        else{   res.json({ userlogin: true, unorpw: "", token:token, admin:false })  }
                         
-                    }
+                   
                     
                 })
                
             } else {
-                res.json({ userlogin: false, unorpw: "username or password incorrect",token:"" })
+                res.json({ userlogin: false, unorpw: "username or password incorrect",token:"", admin:false })
             }
         })
     
