@@ -17,7 +17,7 @@ const Reducer=(state=initial_state,action)=>{
         case "token":
             return{...state,token:action.payload}
         case "admin":
-            return{...state,admin:true}
+            return{...state,admin:action.payload}
         default:
                 return state  
     }
