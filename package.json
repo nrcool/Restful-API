@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "server": "nodemon app.js",
+    "server": "nodemon app",
     "client": "npm start --prefix client",
     "naqvi": "concurrently 'npm run server' 'npm run client'"
   },
