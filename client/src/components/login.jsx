@@ -23,6 +23,7 @@ class Login extends Component {
             this.props.unorpw(res2.unorpw)
             this.props.token(res2.token)
             this.props.admin(res2.admin)
+            this.props.loggedinuser(res2.loggedin)
         }
         )  
     }
@@ -86,7 +87,8 @@ const mapStateToDispatch=(dispatch)=>{
         userLogin:(value)=>dispatch({type:"userLogin",payload:value}),
         unorpw:(value)=>dispatch({type:"unorpw",payload:value}),
         token:(value)=>dispatch({type:"token",payload:value}),
-        admin:(value)=>dispatch({type:"admin",payload:value})
+        admin:(value)=>dispatch({type:"admin",payload:value}),
+        loggedinuser:(value)=>dispatch({type:"loggeduser",payload:value})
         
     }
 }
