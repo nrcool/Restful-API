@@ -12,10 +12,16 @@ class Orders extends Component {
   
 
     getorders = () => {
-        fetch("/orders")
+        fetch("/orders/userorders",{method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username: this.props.data.username
+        })})
             .then(res => res.json())
             .then(res2 => {
-                console.log(res2)
+               /*  console.log(res2) */
                 this.setState({
                     orders: res2
                 })
@@ -29,13 +35,21 @@ class Orders extends Component {
         for (const pair of formdata) {
             searchurl.append(pair[0], pair[1])
         }
+        searchurl.append("username",this.props.data.username)
         e.target.reset()
         console.log(searchurl)
         fetch("/orders", { method: "POST", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     postorder:res2.postorder
-                  }))
+                  },()=>{
+                    setTimeout(() => {
+                       this.setState({
+                          postorder:""
+                       }) 
+                    }, 2000);
+                    
+                }))
     }
     orderUpdate = (e) => {
         e.preventDefault();
@@ -50,6 +64,13 @@ class Orders extends Component {
             .then(res => res.json())
                 .then(res2 => this.setState({
                     updateorder: res2.updateorder
+                },()=>{
+                    setTimeout(() => {
+                       this.setState({
+                          updateorder:""
+                       }) 
+                    }, 2000);
+                    
                 }))
 
     }
@@ -66,10 +87,18 @@ class Orders extends Component {
             .then(res => res.json())
                 .then(res2 => this.setState({
                     deleteorder: res2.deleteorder
+                },()=>{
+                    setTimeout(() => {
+                       this.setState({
+                          deleteorder:""
+                       }) 
+                    }, 2000);
+                    
                 }))
 
     }
     render() {
+        console.log(this.props.data)
         return (
             <div className="ordersspage">
                 <h1>Orders</h1>
