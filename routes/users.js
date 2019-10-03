@@ -2,11 +2,16 @@ const express = require("express")
 const router = express.Router();
 const Users = require("../mongooScheme/usersSchema")
 const bcrypt = require("bcrypt");
-const jwt=require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 require("dotenv").config();
 router.get("/", (req, res, next) => {
-    res.status(200).json({
-        message: "get request for users"
+    Users.find({}).then(users=>{
+        res.send(users)
+    })
+})
+router.delete("/",(req,res,next)=>{
+    Users.deleteOne({username:req.body.username}).then((doc)=>{
+        res.json({deleteuser:"DELETED"})
     })
 })
 router.post("/", (req, res, next) => {
@@ -28,9 +33,9 @@ router.post("/", (req, res, next) => {
                             })
                             user.save().then((doc) => {
                                 console.log(doc, "SAVEDDDDDD::::::::::::::")
-                                /* res.status(201).json({
-                                    Success: "user created into database"
-                                }) */
+                                res.json({
+                                    success: true
+                                })
                             });
                         }
                     })
@@ -49,35 +54,50 @@ router.post("/", (req, res, next) => {
     })
 
 })
-
-router.post("/userlogin", (req, res) => {
+router.post("/userlogin",(req,res)=>{
     console.log(req.body)
     Users.findOne({ username: req.body.username }).then(user => {
-        bcrypt.compare(req.body.password, user.password,(errr,result)=>{
+        bcrypt.compare(req.body.password, user.password, (err, result) => {
             if (result) {
-                jwt.sign({username:user.username,userid:user._id},process.env.MY_BCRYPT,{expiresIn:"1h"},(err,token)=>{
-                    if(err){
-                        res.status(500).json({error:err.message})
-                    }else if(user.username==="admin"){
-                           res.json({ userlogin: true, unorpw: "", token:token ,admin:true,loggedin:user.username }) 
-                        }
-                        else{   res.json({ userlogin: true, unorpw: "", token:token, admin:false,loggedin:user.username })  }
-                        
-                   
-                    
+                jwt.sign({ username: user.username, userid: user._id }, process.env.MY_BCRYPT, { expiresIn: "1h" }, (err, token) => {
+
+                    if (err) {
+                        res.status(500).json({ error: err.message })
+                    } else if (user.username === "admin") {
+                        res.json({ userlogin: true, unorpw: "", token: { token: token, username: req.body.username }, admin: true, loggedin: user.username })
+                    }
+                    else { res.json({ userlogin: true, unorpw: "", token: { token: token, username: req.body.username }, admin: false, loggedin: user.username }) }
+
+
+
                 })
-               
+
             } else {
-                res.json({ userlogin: false, unorpw: "username or password incorrect",token:"", admin:false })
+                res.json({ userlogin: false, unorpw: "username or password incorrect", token: "", admin: false })
             }
         })
-    
-        
-    });
 
-  /*   router.get("/userlogin", (req, res) => {
-        res.json({ userlogin: true })
-    }) */
+
+    });
+})
+router.post("/userlogins", (req, res) => {
+    console.log(req.body)
+    let token = JSON.parse(req.headers.token)
+    console.log(token)
+    if (token.token) {
+        jwt.verify(token.token, process.env.MY_BCRYPT, (err, result) => {
+            console.log("result... ", result)
+            if (err) {
+                console.log("server ........", err)
+            } else if (result.username === "admin") {
+                res.json({ userlogin: true, unorpw: "", auth: { token: token, username: result.username }, admin: true, loggedin: result.usernam })
+            }
+            else { res.json({ userlogin: true, unorpw: "", auth: { token: token, username: result.username }, admin: false, loggedin: result.username }) }
+        })
+    }
+    /*   router.get("/userlogin", (req, res) => {
+          res.json({ userlogin: true })
+      }) */
 
 })
 router.patch("/:userID", (req, res, next) => {
