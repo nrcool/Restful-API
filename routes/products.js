@@ -11,7 +11,7 @@ router.get("/", (req, res, next) => {
 })
 router.post("/", (req, res, next) => {
     console.log(req.body)
-    const product = new Products({
+    let product = new Products({
         itemname: req.body.itemname,
         price: req.body.price,
         quantity: req.body.quantity
@@ -22,7 +22,7 @@ router.post("/", (req, res, next) => {
      }) 
 })
 router.patch("/", (req, res, next) => {
-    products.findByIdAndUpdate(req.body.id,req.body,{new:true},(err, db) => {
+    Products.findByIdAndUpdate(req.body.id,req.body,{new:true},(err, db) => {
         if (err) {
             res.status(500).json({
                 message: "error with server"
@@ -34,7 +34,7 @@ router.patch("/", (req, res, next) => {
 
 })
 router.delete("/", (req, res, next) => {
-    products.findByIdAndDelete(req.body.id,(err, db) => {
+    Products.findByIdAndDelete(req.body.id,(err, db) => {
         if (err) {
             res.status(500).json({
                 message: "error with server"
