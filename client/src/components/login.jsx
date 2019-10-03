@@ -2,7 +2,27 @@ import React, { Component } from 'react'
 import {connect} from "react-redux";
 
 class Login extends Component {
-  
+
+  componentDidMount(){
+    let token=localStorage.getItem('token')
+      console.log(token)
+    if(token){
+        fetch("/users/userlogins",{
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json",
+                token:token
+              },
+              body:JSON.stringify({username:"",password:""})
+        }).then(res=>res.json()).then(res2=>{
+            this.props.userLogin(res2.userlogin)
+            this.props.unorpw(res2.unorpw)
+            this.props.token(res2.token)
+            this.props.admin(res2.admin)
+            this.props.loggedinuser(res2.loggedin)
+        })
+    } 
+  }
     alreadysignup=()=>{
         this.props.userExist(true)
         
@@ -16,7 +36,7 @@ class Login extends Component {
        }
        e.target.reset()
        console.log(searchurl)
-        fetch("/users/userlogin",{method:"POST",body:searchurl})
+        fetch("/users/userlogin",{ method:"POST",body:searchurl})
         .then(res=>res.json())
         .then(res2=>{
             this.props.userLogin(res2.userlogin)
@@ -24,12 +44,30 @@ class Login extends Component {
             this.props.token(res2.token)
             this.props.admin(res2.admin)
             this.props.loggedinuser(res2.loggedin)
+            localStorage.token=JSON.stringify(res2.token);
         }
         )  
+    }
+    signupuser=(e)=>{
+        e.preventDefault();
+        const formdata= new FormData(e.target)
+        const searchurl=new URLSearchParams();
+        for(const pair of formdata){
+            searchurl.append(pair[0],pair[1])
+        }
+        e.target.reset()
+        console.log(searchurl)
+         fetch("/users",{method:"POST",body:searchurl})
+         .then(res=>res.json())
+         .then(res2=>{
+             this.props.userExist(res2.success)
+         }
+         )  
     }
 
     logout=()=>{
         console.log("logout")
+        localStorage.clear();
         this.props.userLogin(false)
    
     }
