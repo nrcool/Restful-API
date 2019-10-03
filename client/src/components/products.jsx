@@ -30,11 +30,17 @@ class Products extends Component {
             searchurl.append(pair[0], pair[1])
         }
         e.target.reset()
-        console.log(searchurl)
         fetch("/products", { method: "POST", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     postproduct:res2.postproduct
+                  },()=>{
+                      setTimeout(() => {
+                         this.setState({
+                            postproduct:""
+                         }) 
+                      }, 2000);
+                      
                   }))
     }
     productUpdate = (e) => {
@@ -45,11 +51,17 @@ class Products extends Component {
             searchurl.append(pair[0], pair[1])
         }
         e.target.reset()
-        console.log(searchurl)
         fetch("/products", { method: "PATCH", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     updateproduct: res2.updateproduct
+                },()=>{
+                    setTimeout(() => {
+                       this.setState({
+                          updateproduct:""
+                       }) 
+                    }, 2000);
+                    
                 }))
 
     }
@@ -61,11 +73,17 @@ class Products extends Component {
             searchurl.append(pair[0], pair[1])
         }
         e.target.reset()
-        console.log(searchurl)
         fetch("/products", { method: "DELETE", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     deleteproduct: res2.deleteproduct
+                },()=>{
+                    setTimeout(() => {
+                       this.setState({
+                          deleteproduct:""
+                       }) 
+                    }, 2000);
+                    
                 }))
 
     }
