@@ -2,8 +2,9 @@ const express = require("express")
 const router = express.Router();
 const Orders = require("../mongooScheme/ordersSchema")
 
-router.get("/", (req, res, next) => {
-    Orders.find().then(orders => {
+router.post("/userorders", (req, res, next) => {
+    console.log(req.body)
+    Orders.find({username:req.body.username}).then(orders => {
         res.send(orders)
     })
     /* res.status(200).json({
@@ -11,8 +12,9 @@ router.get("/", (req, res, next) => {
     }) */
 })
 router.post("/", (req, res, next) => {
-    const order = new Orders({
+    let order = new Orders({
         itemname: req.body.itemname,
+        username:req.body.username,
         price: req.body.price,
         quantity: req.body.quantity
     })
