@@ -28,11 +28,7 @@
   background:lightgray;
 }
 .userspage{
-  width: 1260px;
-  height: 60vh;
-  overflow: auto;
   background:rgb(248, 125, 162);
-  padding: 20px;
 }
 label{
   display: inline-block;
