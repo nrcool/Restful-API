@@ -59,9 +59,9 @@ router.post("/userlogin", (req, res) => {
                     if(err){
                         res.status(500).json({error:err.message})
                     }else if(user.username==="admin"){
-                           res.json({ userlogin: true, unorpw: "", token:token ,admin:true }) 
+                           res.json({ userlogin: true, unorpw: "", token:token ,admin:true,loggedin:user.username }) 
                         }
-                        else{   res.json({ userlogin: true, unorpw: "", token:token, admin:false })  }
+                        else{   res.json({ userlogin: true, unorpw: "", token:token, admin:false,loggedin:user.username })  }
                         
                    
                     
