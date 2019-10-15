@@ -121,8 +121,6 @@ class Orders extends Component {
                             <label htmlFor="itemname"><span> Item Name: </span>
                                 <input type="text" name="itemname" />
                             </label><br />
-                            <label htmlFor="price"><span>price:  </span>
-                                <input type="text" name="price" /> </label><br />
                             <label htmlFor="quantity"><span>Qantity:  </span>
                                 <input type="text" name="quantity" />
                             </label><br />
@@ -140,8 +138,6 @@ class Orders extends Component {
                                 <label htmlFor="itemname"><span>Item Name:  </span>
                                     <input type="text" name="itemname" />
                                 </label><br />
-                                <label htmlFor="price"><span>Price:   </span>
-                                    <input type="text" name="price" /> </label><br />
                                 <label htmlFor="quantity"><span>   Qantity:  </span>
                                     <input type="text" name="quantity" />
                                 </label><br />
@@ -154,8 +150,8 @@ class Orders extends Component {
                         <details> <summary>delete order </summary>
 
                             <form action="/orders" method="DELETE" onSubmit={this.orderDelete} >
-                                <label htmlFor="id"><span>ID: </span>
-                                    <input type="text" name="id" />
+                                <label htmlFor="id"><span>Product Name: </span>
+                                    <input type="text" name="itemname" />
                                 </label><br />
                                 <span className="msjfromserver">{this.state.deleteorder}</span><br/>
                                 <button type="submit">Delete order</button>
