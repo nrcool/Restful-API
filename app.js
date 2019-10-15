@@ -12,7 +12,7 @@ const cors=require("cors")
 require("dotenv").config();
 
 
-mongoose.connect("mongodb://localhost:27017/RestAPI",{ useUnifiedTopology: true , useNewUrlParser: true  },()=>{console.log(("db connected"))})
+mongoose.connect(process.env.MONGO_DB,{ useUnifiedTopology: true , useNewUrlParser: true  },()=>{console.log(("db connected"))})
 app.use(cors())
 app.use(express.static("client"))
 app.use(bodyParser.urlencoded({extended:true}));
