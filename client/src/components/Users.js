@@ -48,13 +48,13 @@ class Users extends Component {
                     <details><summary>all Users </summary>
                     {this.state.users.length === 0 ? "" : (<>{this.state.users.map(user => {
                             return (<div key={user._id} style={{ background: "lightgreen", padding: "5px", buser: "2px dotted black" }}><p> <span style={{ background: "lightgray" }}> Id:</span> {user._id} </p>
-                                <p><span style={{ background: "lightgray" }}>  Username:</span> {user.username} </p> </div>)
+                                <p><span style={{ background: "lightgray" }}>  Item Name:</span> {user.username} </p> </div>)
                         })}</>)}
                      </details>
                 </div>
             <div className="deleteorder">
                 <p>delete order</p>
-                <form method="DELETE" onSubmit={this.deleteuser}>
+                <form action="/users" method="DELETE" onSubmit={this.deleteuser}>
                     <label htmlFor="username"> 
                     <span>   Username: </span>
                       <input type="text" name="username"/>

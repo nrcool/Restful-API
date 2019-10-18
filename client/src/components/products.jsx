@@ -12,13 +12,8 @@ class Products extends Component {
   
 
     getproducts = () => {
-        fetch("/products",{method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }})
-            .then(res => {
-           res.json() })
+        fetch("/products")
+            .then(res => res.json())
             .then(res2 => {
                 console.log(res2)
                 this.setState({
@@ -111,7 +106,7 @@ class Products extends Component {
                 {this.props.data.admin ?<> <div className="postproduct">
                     <details><summary>post product </summary>
 
-                        <form method="POST" onSubmit={this.productPost}>
+                        <form action="/products" method="POST" onSubmit={this.productPost}>
                             <label htmlFor="productname"><span>product Name:  </span>
                                 <input type="text" name="itemname" />
                             </label><br />
@@ -127,7 +122,7 @@ class Products extends Component {
                     <div className="updateproduct">
                         <details><summary> update product</summary>
 
-                            <form method="PATCH" onSubmit={this.productUpdate}>
+                            <form action="/products" method="PATCH" onSubmit={this.productUpdate}>
                                 <label htmlFor="id"><span> ID: </span>
                                     <input type="text" name="id" />
                                 </label><br />
@@ -145,7 +140,7 @@ class Products extends Component {
                     </div>
                     <div className="deleteproduct">
                         <details><summary> delete product</summary>
-                            <form method="DELETE" onSubmit={this.productDelete}>
+                            <form action="/products" method="DELETE" onSubmit={this.productDelete}>
                                 <label htmlFor="id"><span> ID:</span>
                                     <input type="text" name="id" />
                                 </label><br />

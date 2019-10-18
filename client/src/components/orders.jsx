@@ -14,8 +14,7 @@ class Orders extends Component {
     getorders = () => {
         fetch("/orders/userorders",{method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           username: this.props.data.username
@@ -118,7 +117,7 @@ class Orders extends Component {
                 {this.props.data.userLogin ? <><div className="postorder">
                     <details> <summary>post order </summary>
 
-                        <form method="POST" onSubmit={this.orderPost}>
+                        <form action="/orders" method="POST" onSubmit={this.orderPost}>
                             <label htmlFor="itemname"><span> Item Name: </span>
                                 <input type="text" name="itemname" />
                             </label><br />
@@ -132,7 +131,7 @@ class Orders extends Component {
                     <div className="updateorder">
                         <details> <summary>update order </summary>
 
-                            <form method="PATCH" onSubmit={this.orderUpdate}>
+                            <form action="/orders" method="PATCH" onSubmit={this.orderUpdate}>
                                 <label htmlFor="id"><span> ID:</span>
                                     <input type="text" name="id" />
                                 </label><br />
@@ -150,7 +149,7 @@ class Orders extends Component {
                     <div className="deleteorder">
                         <details> <summary>delete order </summary>
 
-                            <form method="DELETE" onSubmit={this.orderDelete} >
+                            <form action="/orders" method="DELETE" onSubmit={this.orderDelete} >
                                 <label htmlFor="id"><span>Product Name: </span>
                                     <input type="text" name="itemname" />
                                 </label><br />

@@ -7,7 +7,7 @@ class Login extends Component {
     let token=localStorage.getItem('token')
       console.log(token)
     if(token){
-        fetch("https://my-restful-api5.herokuapp.com/users/userlogins",{
+        fetch("/users/userlogins",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json",
@@ -24,10 +24,8 @@ class Login extends Component {
     } 
   }
     alreadysignup=()=>{
-        this.props.userExist(true)   
-    }
-    signup=()=>{
-        this.props.userExist(false)   
+        this.props.userExist(true)
+        
     }
     userlogin=(e)=>{
        e.preventDefault();
@@ -38,7 +36,7 @@ class Login extends Component {
        }
        e.target.reset()
        console.log(searchurl)
-        fetch("https://my-restful-api5.herokuapp.com/users/userlogin",{ method:"POST",body:searchurl})
+        fetch("/users/userlogin",{ method:"POST",body:searchurl})
         .then(res=>res.json())
         .then(res2=>{
             this.props.userLogin(res2.userlogin)
@@ -77,6 +75,7 @@ class Login extends Component {
         console.log(this.props.data)
         const signupPage=(<><h1>Sign up </h1>
             <form className="loginform" 
+            action="/users" 
             method="POST" 
             onSubmit={this.signupuser}
             >
@@ -94,7 +93,7 @@ class Login extends Component {
                 <input type="submit" value="Sign up"/>
 
               
-                <p style={{color:"blue",cursor:"pointer"}}onClick={this.alreadysignup}>Already Signup?</p>
+                <p onClick={this.alreadysignup}>Already Signup?</p>
             </form></>)
         const loginPage=(<><h1>Login Page</h1>
                           <form onSubmit={this.userlogin}>
@@ -106,12 +105,11 @@ class Login extends Component {
                               </label><br/>
                               <span style={{color:"red"}}>{this.props.data.unorpw}</span><br/>
                               <button type="submit">Login</button>
-                              <div style={{marginTop:"20px"}}>Dont have an Account?</div>
-                              <span style={{color:"blue",cursor:"pointer"}}onClick={this.signup}>Signup</span>
+
                               </form>  </>)
         return (
             <div className="loginpage">
-                {this.props.data.userLogin?<div><h1>You are Logged in </h1><button onClick={this.logout}>logout</button></div>:<>{this.props.data.userExisted?loginPage:signupPage}</>}
+                {this.props.data.userLogin?<div><button onClick={this.logout}>logout</button></div>:<>{this.props.data.userExisted?loginPage:signupPage}</>}
                
             </div>
         )

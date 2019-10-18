@@ -6,8 +6,7 @@ const jwt = require("jsonwebtoken")
 require("dotenv").config();
 router.get("/", (req, res, next) => {
     Users.find({}).then(users=>{
-       const filteredUsers=users.filter(user=>user.username!=="admin")
-        res.send(filteredUsers)
+        res.send(users)
     })
 })
 router.delete("/",(req,res,next)=>{
