@@ -15,6 +15,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy":"https://my-restful-api5.herokuapp.com",
   "eslintConfig": {
     "extends": "react-app"
   },

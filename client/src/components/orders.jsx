@@ -12,7 +12,7 @@ class Orders extends Component {
   
 
     getorders = () => {
-        fetch("https://my-restful-api5.herokuapp.com/orders/userorders",{method: "POST",
+        fetch("/orders/userorders",{method: "POST",
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -39,7 +39,7 @@ class Orders extends Component {
         searchurl.append("username",this.props.data.username)
         e.target.reset()
         console.log(searchurl)
-        fetch("https://my-restful-api5.herokuapp.com/orders", { method: "POST", body: searchurl })
+        fetch("/orders", { method: "POST", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     postorder:res2.postorder
@@ -61,7 +61,7 @@ class Orders extends Component {
         }
         e.target.reset()
         console.log(searchurl)
-        fetch("https://my-restful-api5.herokuapp.com/orders", { method: "PATCH", body: searchurl })
+        fetch("/orders", { method: "PATCH", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     updateorder: res2.updateorder
@@ -84,7 +84,7 @@ class Orders extends Component {
         }
         e.target.reset()
         console.log(searchurl)
-        fetch("https://my-restful-api5.herokuapp.com/orders", { method: "DELETE", body: searchurl })
+        fetch("/orders", { method: "DELETE", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     deleteorder: res2.deleteorder

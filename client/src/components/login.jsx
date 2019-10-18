@@ -59,7 +59,7 @@ class Login extends Component {
         }
         e.target.reset()
         console.log(searchurl)
-         fetch("https://my-restful-api5.herokuapp.com/users",{method:"POST",body:searchurl})
+         fetch("/users",{method:"POST",body:searchurl})
          .then(res=>res.json())
          .then(res2=>{
              this.props.userExist(res2.success)
