@@ -14,7 +14,8 @@ class Orders extends Component {
     getorders = () => {
         fetch("https://my-restful-api5.herokuapp.com/orders/userorders",{method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
           username: this.props.data.username
