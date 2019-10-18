@@ -24,8 +24,10 @@ class Login extends Component {
     } 
   }
     alreadysignup=()=>{
-        this.props.userExist(true)
-        
+        this.props.userExist(true)   
+    }
+    signup=()=>{
+        this.props.userExist(false)   
     }
     userlogin=(e)=>{
        e.preventDefault();
@@ -93,7 +95,7 @@ class Login extends Component {
                 <input type="submit" value="Sign up"/>
 
               
-                <p onClick={this.alreadysignup}>Already Signup?</p>
+                <p style={{color:"blue",cursor:"pointer"}}onClick={this.alreadysignup}>Already Signup?</p>
             </form></>)
         const loginPage=(<><h1>Login Page</h1>
                           <form onSubmit={this.userlogin}>
@@ -105,11 +107,12 @@ class Login extends Component {
                               </label><br/>
                               <span style={{color:"red"}}>{this.props.data.unorpw}</span><br/>
                               <button type="submit">Login</button>
-
+                              <div style={{marginTop:"20px"}}>Dont have an Account?</div>
+                              <span style={{color:"blue",cursor:"pointer"}}onClick={this.signup}>Signup</span>
                               </form>  </>)
         return (
             <div className="loginpage">
-                {this.props.data.userLogin?<div><button onClick={this.logout}>logout</button></div>:<>{this.props.data.userExisted?loginPage:signupPage}</>}
+                {this.props.data.userLogin?<div><h1>You are Logged in </h1><button onClick={this.logout}>logout</button></div>:<>{this.props.data.userExisted?loginPage:signupPage}</>}
                
             </div>
         )
