@@ -12,7 +12,7 @@ class Products extends Component {
   
 
     getproducts = () => {
-        fetch("/products")
+        fetch("https://my-restful-api5.herokuapp.com/products")
             .then(res => res.json())
             .then(res2 => {
                 console.log(res2)
@@ -30,7 +30,7 @@ class Products extends Component {
             searchurl.append(pair[0], pair[1])
         }
         e.target.reset()
-        fetch("/products", { method: "POST", body: searchurl })
+        fetch("https://my-restful-api5.herokuapp.com/products", { method: "POST", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     postproduct:res2.postproduct
@@ -51,7 +51,7 @@ class Products extends Component {
             searchurl.append(pair[0], pair[1])
         }
         e.target.reset()
-        fetch("/products", { method: "PATCH", body: searchurl })
+        fetch("https://my-restful-api5.herokuapp.com/products", { method: "PATCH", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     updateproduct: res2.updateproduct
@@ -73,7 +73,7 @@ class Products extends Component {
             searchurl.append(pair[0], pair[1])
         }
         e.target.reset()
-        fetch("/products", { method: "DELETE", body: searchurl })
+        fetch("https://my-restful-api5.herokuapp.com/products", { method: "DELETE", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     deleteproduct: res2.deleteproduct

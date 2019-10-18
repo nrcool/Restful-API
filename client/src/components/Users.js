@@ -7,7 +7,7 @@ class Users extends Component {
         deleteuser:""
     }
     getusers=()=>{
-        fetch(`/users`)
+        fetch("https://my-restful-api5.herokuapp.com"+"/users")
         .then(res => res.json())
         .then(res2 => {
             console.log(res2)
@@ -25,7 +25,7 @@ class Users extends Component {
             searchurl.append(pair[0], pair[1])
         }
         e.target.reset()
-        fetch("/users", { method: "DELETE", body: searchurl })
+        fetch("https://my-restful-api5.herokuapp.com/users", { method: "DELETE", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     deleteuser: res2.deleteuser

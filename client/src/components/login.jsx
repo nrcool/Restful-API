@@ -7,7 +7,7 @@ class Login extends Component {
     let token=localStorage.getItem('token')
       console.log(token)
     if(token){
-        fetch("/users/userlogins",{
+        fetch("https://my-restful-api5.herokuapp.com/users/userlogins",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json",
@@ -38,7 +38,7 @@ class Login extends Component {
        }
        e.target.reset()
        console.log(searchurl)
-        fetch("/users/userlogin",{ method:"POST",body:searchurl})
+        fetch("https://my-restful-api5.herokuapp.com/users/userlogin",{ method:"POST",body:searchurl})
         .then(res=>res.json())
         .then(res2=>{
             this.props.userLogin(res2.userlogin)
@@ -59,7 +59,7 @@ class Login extends Component {
         }
         e.target.reset()
         console.log(searchurl)
-         fetch("/users",{method:"POST",body:searchurl})
+         fetch("https://my-restful-api5.herokuapp.com/users",{method:"POST",body:searchurl})
          .then(res=>res.json())
          .then(res2=>{
              this.props.userExist(res2.success)
