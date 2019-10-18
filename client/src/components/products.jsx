@@ -17,7 +17,9 @@ class Products extends Component {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         }})
-            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+           res.json() })
             .then(res2 => {
                 console.log(res2)
                 this.setState({
