@@ -12,7 +12,7 @@ class Orders extends Component {
   
 
     getorders = () => {
-        fetch(window.location.host+"/orders/userorders",{method: "POST",
+        fetch("/orders/userorders",{method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
@@ -38,7 +38,7 @@ class Orders extends Component {
         searchurl.append("username",this.props.data.username)
         e.target.reset()
         console.log(searchurl)
-        fetch(window.location.host+"/orders", { method: "POST", body: searchurl })
+        fetch("/orders", { method: "POST", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     postorder:res2.postorder
@@ -60,7 +60,7 @@ class Orders extends Component {
         }
         e.target.reset()
         console.log(searchurl)
-        fetch(window.location.host+"/orders", { method: "PATCH", body: searchurl })
+        fetch("/orders", { method: "PATCH", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     updateorder: res2.updateorder
@@ -83,7 +83,7 @@ class Orders extends Component {
         }
         e.target.reset()
         console.log(searchurl)
-        fetch(window.location.host+"/orders", { method: "DELETE", body: searchurl })
+        fetch("/orders", { method: "DELETE", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     deleteorder: res2.deleteorder
