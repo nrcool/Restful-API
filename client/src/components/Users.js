@@ -7,7 +7,7 @@ class Users extends Component {
         deleteuser:""
     }
     getusers=()=>{
-        fetch("/users")
+        fetch(`${window.location.host}/users`)
         .then(res => res.json())
         .then(res2 => {
             console.log(res2)
@@ -25,7 +25,7 @@ class Users extends Component {
             searchurl.append(pair[0], pair[1])
         }
         e.target.reset()
-        fetch("/users", { method: "DELETE", body: searchurl })
+        fetch(window.location.host+"/users", { method: "DELETE", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     deleteuser: res2.deleteuser
@@ -54,7 +54,7 @@ class Users extends Component {
                 </div>
             <div className="deleteorder">
                 <p>delete order</p>
-                <form action="/users" method="DELETE" onSubmit={this.deleteuser}>
+                <form method="DELETE" onSubmit={this.deleteuser}>
                     <label htmlFor="username"> 
                     <span>   Username: </span>
                       <input type="text" name="username"/>

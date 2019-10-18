@@ -30,7 +30,7 @@ class Products extends Component {
             searchurl.append(pair[0], pair[1])
         }
         e.target.reset()
-        fetch("/products", { method: "POST", body: searchurl })
+        fetch(window.location.host+"/products", { method: "POST", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     postproduct:res2.postproduct
@@ -51,7 +51,7 @@ class Products extends Component {
             searchurl.append(pair[0], pair[1])
         }
         e.target.reset()
-        fetch("/products", { method: "PATCH", body: searchurl })
+        fetch(window.location.host+"/products", { method: "PATCH", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     updateproduct: res2.updateproduct
@@ -73,7 +73,7 @@ class Products extends Component {
             searchurl.append(pair[0], pair[1])
         }
         e.target.reset()
-        fetch("/products", { method: "DELETE", body: searchurl })
+        fetch(window.location.host+"/products", { method: "DELETE", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     deleteproduct: res2.deleteproduct
@@ -106,7 +106,7 @@ class Products extends Component {
                 {this.props.data.admin ?<> <div className="postproduct">
                     <details><summary>post product </summary>
 
-                        <form action="/products" method="POST" onSubmit={this.productPost}>
+                        <form method="POST" onSubmit={this.productPost}>
                             <label htmlFor="productname"><span>product Name:  </span>
                                 <input type="text" name="itemname" />
                             </label><br />
@@ -122,7 +122,7 @@ class Products extends Component {
                     <div className="updateproduct">
                         <details><summary> update product</summary>
 
-                            <form action="/products" method="PATCH" onSubmit={this.productUpdate}>
+                            <form method="PATCH" onSubmit={this.productUpdate}>
                                 <label htmlFor="id"><span> ID: </span>
                                     <input type="text" name="id" />
                                 </label><br />
@@ -140,7 +140,7 @@ class Products extends Component {
                     </div>
                     <div className="deleteproduct">
                         <details><summary> delete product</summary>
-                            <form action="/products" method="DELETE" onSubmit={this.productDelete}>
+                            <form method="DELETE" onSubmit={this.productDelete}>
                                 <label htmlFor="id"><span> ID:</span>
                                     <input type="text" name="id" />
                                 </label><br />

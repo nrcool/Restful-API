@@ -12,7 +12,7 @@ class Orders extends Component {
   
 
     getorders = () => {
-        fetch("/orders/userorders",{method: "POST",
+        fetch(window.location.host+"/orders/userorders",{method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
@@ -38,7 +38,7 @@ class Orders extends Component {
         searchurl.append("username",this.props.data.username)
         e.target.reset()
         console.log(searchurl)
-        fetch("/orders", { method: "POST", body: searchurl })
+        fetch(window.location.host+"/orders", { method: "POST", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     postorder:res2.postorder
@@ -60,7 +60,7 @@ class Orders extends Component {
         }
         e.target.reset()
         console.log(searchurl)
-        fetch("/orders", { method: "PATCH", body: searchurl })
+        fetch(window.location.host+"/orders", { method: "PATCH", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     updateorder: res2.updateorder
@@ -83,7 +83,7 @@ class Orders extends Component {
         }
         e.target.reset()
         console.log(searchurl)
-        fetch("/orders", { method: "DELETE", body: searchurl })
+        fetch(window.location.host+"/orders", { method: "DELETE", body: searchurl })
             .then(res => res.json())
                 .then(res2 => this.setState({
                     deleteorder: res2.deleteorder
@@ -117,7 +117,7 @@ class Orders extends Component {
                 {this.props.data.userLogin ? <><div className="postorder">
                     <details> <summary>post order </summary>
 
-                        <form action="/orders" method="POST" onSubmit={this.orderPost}>
+                        <form method="POST" onSubmit={this.orderPost}>
                             <label htmlFor="itemname"><span> Item Name: </span>
                                 <input type="text" name="itemname" />
                             </label><br />
@@ -131,7 +131,7 @@ class Orders extends Component {
                     <div className="updateorder">
                         <details> <summary>update order </summary>
 
-                            <form action="/orders" method="PATCH" onSubmit={this.orderUpdate}>
+                            <form method="PATCH" onSubmit={this.orderUpdate}>
                                 <label htmlFor="id"><span> ID:</span>
                                     <input type="text" name="id" />
                                 </label><br />
@@ -149,7 +149,7 @@ class Orders extends Component {
                     <div className="deleteorder">
                         <details> <summary>delete order </summary>
 
-                            <form action="/orders" method="DELETE" onSubmit={this.orderDelete} >
+                            <form method="DELETE" onSubmit={this.orderDelete} >
                                 <label htmlFor="id"><span>Product Name: </span>
                                     <input type="text" name="itemname" />
                                 </label><br />
