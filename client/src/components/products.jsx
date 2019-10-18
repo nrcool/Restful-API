@@ -12,7 +12,11 @@ class Products extends Component {
   
 
     getproducts = () => {
-        fetch("https://my-restful-api5.herokuapp.com/products")
+        fetch("https://my-restful-api5.herokuapp.com/products",{method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }})
             .then(res => res.json())
             .then(res2 => {
                 console.log(res2)
